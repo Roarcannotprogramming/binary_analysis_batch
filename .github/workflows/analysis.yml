@@ -1,0 +1,23 @@
+name: Analyse Binary
+on:
+  workflow_dispatch:
+  push:
+
+jobs:
+  analyse:
+    name: Analyse Binary
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Analyse Binary
+        run: |
+          ./test.ps1
+
+  
