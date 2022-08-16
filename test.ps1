@@ -5,5 +5,6 @@ New-ItemProperty -Path 'HKCU:\SOFTWARE\Hex-Rays\IDA' -Name 'License Hex-Rays SA.
 # Set-NetFirewallProfile -Profile Private -Enabled False
 # Set-NetFirewallProfile -Profile Public -Enabled False
 # ls .\ida75
+.\ida75\ida64.exe
 .\ida75\idat64.exe -B .\pwn3 2>&1 | tee .\ida.log
 ls
