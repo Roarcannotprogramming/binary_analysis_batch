@@ -1,3 +1,4 @@
+chcp 65001
 echo "Running test.ps1"
 echo 0 | .\ida75\idapyswitch.exe
 $env:PYTHONHOME="C:\hostedtoolcache\windows\Python\3.9.13\x64"
