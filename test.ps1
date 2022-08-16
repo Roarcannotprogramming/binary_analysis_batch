@@ -1,6 +1,6 @@
 echo "Running test.ps1"
 whoami
-echo "TEST OUT" >&1
+echo "TEST OUT"
 echo "TEST ERROR" >&2
 echo 0 | .\ida75\idapyswitch.exe
 $env:PYTHONHOME="C:\hostedtoolcache\windows\Python\3.9.13\x64"
