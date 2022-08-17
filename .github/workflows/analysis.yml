@@ -6,30 +6,25 @@ on:
 jobs:
   analyse:
     name: Analyse Binary
-    runs-on: windows-2019
+    runs-on: ubuntu-22.04
+    env:
+      binary: pwn3
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
-      
-      - name: Setup Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.9'
+        uses: actions/checkout@v3
 
-      - name: Analyse Binary
-        shell: pwsh
+      - name: start docker and analyse
         run: |
-          echo "Running test.ps1"
-          echo 1 | .\ida75\idapyswitch.exe
-          $env:PYTHONHOME="C:\Miniconda"
-          # New-ItemProperty -Path 'HKCU:\SOFTWARE\Hex-Rays\IDA' -Name 'License Hex-Rays SA. 銆愯珛鏀寔姝ｇ増銆? Unlimited License' -Value "1" -PropertyType DWORD -Force
-          # Get-ItemProperty -path 'HKCU:\SOFTWARE\Hex-Rays\IDA' -Name 'Python3TargetDLL'
-          reg import .\x.reg
-          Get-ItemProperty -path 'HKCU:\SOFTWARE\Hex-Rays\IDA'
-          Set-NetFirewallProfile -Profile Private -Enabled False
-          Set-NetFirewallProfile -Profile Public -Enabled False
-          .\ida75\ida64.exe -t
-          # .\ida75\idat64.exe -B .\pwn3 2>&1 | tee .\ida.log
-          ls
+          chmod +x analysis.sh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host -it nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
 
-  
+      - name: Prepare Artifact
+        run: |
+          tar -cvf - ${{ env.binary }} | zstd - -o ${{ env.binary }}.tar.zst }} 
+
+      - name: Artifact
+        uses: actions/artifact@v3
+        with:
+          name: ${{ env.binary }}
+          path: ${{ env.binary }}.tar.zst
