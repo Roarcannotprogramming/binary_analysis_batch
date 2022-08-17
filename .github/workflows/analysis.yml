@@ -28,7 +28,8 @@ jobs:
           Get-ItemProperty -path 'HKCU:\SOFTWARE\Hex-Rays\IDA'
           Set-NetFirewallProfile -Profile Private -Enabled False
           Set-NetFirewallProfile -Profile Public -Enabled False
-          .\ida75\idat64.exe -B .\pwn3 2>&1 | tee .\ida.log
+          .\ida75\ida64.exe -S
+          # .\ida75\idat64.exe -B .\pwn3 2>&1 | tee .\ida.log
           ls
 
   
