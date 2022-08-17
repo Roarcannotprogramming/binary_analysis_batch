@@ -8,7 +8,7 @@ jobs:
     name: Analyse Binary
     runs-on: ubuntu-22.04
     env:
-      binary: pwn3
+      binary: MonsterHunterRise.exe
     steps:
       - name: Update and Upgrade
         run: |
