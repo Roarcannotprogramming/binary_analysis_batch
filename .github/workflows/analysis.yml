@@ -16,7 +16,7 @@ jobs:
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
-          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host -it nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
           ls -la
 
       - name: Prepare Artifact
