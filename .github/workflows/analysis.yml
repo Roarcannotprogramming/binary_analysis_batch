@@ -24,7 +24,7 @@ jobs:
           tar -cvf - ${{ env.binary }} | zstd - -o ${{ env.binary }}.tar.zst }} 
 
       - name: Artifact
-        uses: actions/artifact@v3
+        uses: actions/upload-artifact@v3
         with:
           name: ${{ env.binary }}
           path: ${{ env.binary }}.tar.zst
