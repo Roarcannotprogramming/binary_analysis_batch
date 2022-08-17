@@ -17,10 +17,13 @@ jobs:
           sudo apt install -y zstd
       - name: Checkout
         uses: actions/checkout@v3
+        with:
+          lfs: true
 
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
+          ls -alh
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
           ls -la
 
