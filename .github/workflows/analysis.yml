@@ -10,6 +10,11 @@ jobs:
     env:
       binary: pwn3
     steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
       - name: Checkout
         uses: actions/checkout@v3
 
@@ -21,7 +26,7 @@ jobs:
 
       - name: Prepare Artifact
         run: |
-          tar -cvf - ${{ env.binary }} | zstd - -o ${{ env.binary }}.tar.zst }} 
+          tar -cvf - ${{ env.binary }} | zstd - -o ${{ env.binary }}.tar.zst
 
       - name: Artifact
         uses: actions/upload-artifact@v3
