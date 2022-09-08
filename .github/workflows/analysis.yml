@@ -25,6 +25,7 @@ jobs:
       - name: Download Binary
         run: |
           curl -L ${{ env.url }} -o ${{ env.binary }}
+          ls -alh
 
       - name: start docker and analyse
         run: |
