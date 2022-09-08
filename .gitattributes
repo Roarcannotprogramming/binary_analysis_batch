@@ -1,1 +1,1 @@
-MonsterHunterRise.exe filter=lfs diff=lfs merge=lfs -text
+# MonsterHunterRise.exe filter=lfs diff=lfs merge=lfs -text

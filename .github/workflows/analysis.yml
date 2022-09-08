@@ -1,10 +1,11 @@
 name: Analyse Binary
 on:
   workflow_dispatch:
-  push:
+  # push:
 
 env:
   binary: MonsterHunterRise.exe
+  url: http://storage.live.com/items/207D308974C1AE6B!219969:/MonsterHunterRise.exe?authkey=AJkvzg0zYsQ5QxA
 
 jobs:
   analyse:
@@ -15,11 +16,15 @@ jobs:
         run: |
           sudo apt update
           sudo apt upgrade -y
-          sudo apt install -y zstd
+          sudo apt install -y zstd curl wget
       - name: Checkout
         uses: actions/checkout@v3
         with:
           lfs: true
+
+      - name: Download Binary
+        run: |
+          curl -L ${{ env.url }} -o ${{ env.binary }}
 
       - name: start docker and analyse
         run: |
@@ -69,6 +74,7 @@ jobs:
 
       - name: Prepare Artifact
         run: |
+          rm -rf ${{ env.binary }}.tar.zst
           tar -cvf - ${{ env.binary }}* | zstd - -o ${{ env.binary }}.tar.zst
 
       - name: Artifact
@@ -108,6 +114,7 @@ jobs:
 
       - name: Prepare Artifact
         run: |
+          rm -rf ${{ env.binary }}.tar.zst
           tar -cvf - ${{ env.binary }}* | zstd - -o ${{ env.binary }}.tar.zst
 
       - name: Artifact
@@ -147,6 +154,7 @@ jobs:
 
       - name: Prepare Artifact
         run: |
+          rm -rf ${{ env.binary }}.tar.zst
           tar -cvf - ${{ env.binary }}* | zstd - -o ${{ env.binary }}.tar.zst
 
       - name: Artifact
@@ -186,11 +194,92 @@ jobs:
 
       - name: Prepare Artifact
         run: |
+          rm -rf ${{ env.binary }}.tar.zst
           tar -cvf - ${{ env.binary }}* | zstd - -o ${{ env.binary }}.tar.zst
 
       - name: Artifact
         uses: actions/upload-artifact@v3
         with:
           name: ${{ env.binary }}_4
+          path: ${{ env.binary }}.tar.zst
+
+  analyse_continue_5:
+    needs: analyse_continue_4
+    name: Analyse Binary Continue 5
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_4
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_5
+          path: ${{ env.binary }}.tar.zst
+
+  analyse_continue_6:
+    needs: analyse_continue_5
+    name: Analyse Binary Continue 6
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_5
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_6
           path: ${{ env.binary }}.tar.zst
     
