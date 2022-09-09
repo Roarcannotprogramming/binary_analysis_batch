@@ -276,7 +276,7 @@ jobs:
       - name: Prepare Artifact
         run: |
           rm -rf ${{ env.binary }}.tar.zst
-          tar -cvf - ${{ env.binary }}* | zstd - -o ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
 
       - name: Artifact
         uses: actions/upload-artifact@v3
