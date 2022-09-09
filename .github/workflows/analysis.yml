@@ -76,13 +76,14 @@ jobs:
       - name: Prepare Artifact
         run: |
           rm -rf ${{ env.binary }}.tar.zst
-          tar -cvf - ${{ env.binary }}* | zstd - -o ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
 
       - name: Artifact
         uses: actions/upload-artifact@v3
         with:
           name: ${{ env.binary }}_1
           path: ${{ env.binary }}.tar.zst
+        
     
   analyse_continue_2:
     needs: analyse_continue_1
@@ -116,14 +117,15 @@ jobs:
       - name: Prepare Artifact
         run: |
           rm -rf ${{ env.binary }}.tar.zst
-          tar -cvf - ${{ env.binary }}* | zstd - -o ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
 
       - name: Artifact
         uses: actions/upload-artifact@v3
         with:
           name: ${{ env.binary }}_2
           path: ${{ env.binary }}.tar.zst
-
+        
+    
   analyse_continue_3:
     needs: analyse_continue_2
     name: Analyse Binary Continue 3
@@ -156,14 +158,15 @@ jobs:
       - name: Prepare Artifact
         run: |
           rm -rf ${{ env.binary }}.tar.zst
-          tar -cvf - ${{ env.binary }}* | zstd - -o ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
 
       - name: Artifact
         uses: actions/upload-artifact@v3
         with:
           name: ${{ env.binary }}_3
           path: ${{ env.binary }}.tar.zst
-
+        
+    
   analyse_continue_4:
     needs: analyse_continue_3
     name: Analyse Binary Continue 4
@@ -196,14 +199,15 @@ jobs:
       - name: Prepare Artifact
         run: |
           rm -rf ${{ env.binary }}.tar.zst
-          tar -cvf - ${{ env.binary }}* | zstd - -o ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
 
       - name: Artifact
         uses: actions/upload-artifact@v3
         with:
           name: ${{ env.binary }}_4
           path: ${{ env.binary }}.tar.zst
-
+        
+    
   analyse_continue_5:
     needs: analyse_continue_4
     name: Analyse Binary Continue 5
@@ -236,14 +240,15 @@ jobs:
       - name: Prepare Artifact
         run: |
           rm -rf ${{ env.binary }}.tar.zst
-          tar -cvf - ${{ env.binary }}* | zstd - -o ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
 
       - name: Artifact
         uses: actions/upload-artifact@v3
         with:
           name: ${{ env.binary }}_5
           path: ${{ env.binary }}.tar.zst
-
+        
+    
   analyse_continue_6:
     needs: analyse_continue_5
     name: Analyse Binary Continue 6
@@ -283,4 +288,5458 @@ jobs:
         with:
           name: ${{ env.binary }}_6
           path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_7:
+    needs: analyse_continue_6
+    name: Analyse Binary Continue 7
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_6
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_7
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_8:
+    needs: analyse_continue_7
+    name: Analyse Binary Continue 8
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_7
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_8
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_9:
+    needs: analyse_continue_8
+    name: Analyse Binary Continue 9
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_8
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_9
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_10:
+    needs: analyse_continue_9
+    name: Analyse Binary Continue 10
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_9
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_10
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_11:
+    needs: analyse_continue_10
+    name: Analyse Binary Continue 11
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_10
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_11
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_12:
+    needs: analyse_continue_11
+    name: Analyse Binary Continue 12
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_11
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_12
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_13:
+    needs: analyse_continue_12
+    name: Analyse Binary Continue 13
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_12
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_13
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_14:
+    needs: analyse_continue_13
+    name: Analyse Binary Continue 14
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_13
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_14
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_15:
+    needs: analyse_continue_14
+    name: Analyse Binary Continue 15
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_14
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_15
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_16:
+    needs: analyse_continue_15
+    name: Analyse Binary Continue 16
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_15
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_16
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_17:
+    needs: analyse_continue_16
+    name: Analyse Binary Continue 17
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_16
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_17
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_18:
+    needs: analyse_continue_17
+    name: Analyse Binary Continue 18
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_17
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_18
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_19:
+    needs: analyse_continue_18
+    name: Analyse Binary Continue 19
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_18
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_19
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_20:
+    needs: analyse_continue_19
+    name: Analyse Binary Continue 20
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_19
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_20
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_21:
+    needs: analyse_continue_20
+    name: Analyse Binary Continue 21
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_20
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_21
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_22:
+    needs: analyse_continue_21
+    name: Analyse Binary Continue 22
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_21
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_22
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_23:
+    needs: analyse_continue_22
+    name: Analyse Binary Continue 23
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_22
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_23
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_24:
+    needs: analyse_continue_23
+    name: Analyse Binary Continue 24
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_23
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_24
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_25:
+    needs: analyse_continue_24
+    name: Analyse Binary Continue 25
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_24
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_25
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_26:
+    needs: analyse_continue_25
+    name: Analyse Binary Continue 26
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_25
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_26
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_27:
+    needs: analyse_continue_26
+    name: Analyse Binary Continue 27
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_26
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_27
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_28:
+    needs: analyse_continue_27
+    name: Analyse Binary Continue 28
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_27
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_28
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_29:
+    needs: analyse_continue_28
+    name: Analyse Binary Continue 29
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_28
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_29
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_30:
+    needs: analyse_continue_29
+    name: Analyse Binary Continue 30
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_29
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_30
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_31:
+    needs: analyse_continue_30
+    name: Analyse Binary Continue 31
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_30
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_31
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_32:
+    needs: analyse_continue_31
+    name: Analyse Binary Continue 32
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_31
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_32
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_33:
+    needs: analyse_continue_32
+    name: Analyse Binary Continue 33
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_32
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_33
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_34:
+    needs: analyse_continue_33
+    name: Analyse Binary Continue 34
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_33
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_34
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_35:
+    needs: analyse_continue_34
+    name: Analyse Binary Continue 35
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_34
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_35
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_36:
+    needs: analyse_continue_35
+    name: Analyse Binary Continue 36
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_35
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_36
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_37:
+    needs: analyse_continue_36
+    name: Analyse Binary Continue 37
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_36
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_37
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_38:
+    needs: analyse_continue_37
+    name: Analyse Binary Continue 38
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_37
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_38
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_39:
+    needs: analyse_continue_38
+    name: Analyse Binary Continue 39
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_38
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_39
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_40:
+    needs: analyse_continue_39
+    name: Analyse Binary Continue 40
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_39
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_40
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_41:
+    needs: analyse_continue_40
+    name: Analyse Binary Continue 41
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_40
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_41
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_42:
+    needs: analyse_continue_41
+    name: Analyse Binary Continue 42
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_41
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_42
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_43:
+    needs: analyse_continue_42
+    name: Analyse Binary Continue 43
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_42
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_43
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_44:
+    needs: analyse_continue_43
+    name: Analyse Binary Continue 44
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_43
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_44
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_45:
+    needs: analyse_continue_44
+    name: Analyse Binary Continue 45
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_44
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_45
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_46:
+    needs: analyse_continue_45
+    name: Analyse Binary Continue 46
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_45
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_46
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_47:
+    needs: analyse_continue_46
+    name: Analyse Binary Continue 47
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_46
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_47
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_48:
+    needs: analyse_continue_47
+    name: Analyse Binary Continue 48
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_47
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_48
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_49:
+    needs: analyse_continue_48
+    name: Analyse Binary Continue 49
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_48
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_49
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_50:
+    needs: analyse_continue_49
+    name: Analyse Binary Continue 50
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_49
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_50
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_51:
+    needs: analyse_continue_50
+    name: Analyse Binary Continue 51
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_50
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_51
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_52:
+    needs: analyse_continue_51
+    name: Analyse Binary Continue 52
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_51
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_52
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_53:
+    needs: analyse_continue_52
+    name: Analyse Binary Continue 53
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_52
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_53
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_54:
+    needs: analyse_continue_53
+    name: Analyse Binary Continue 54
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_53
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_54
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_55:
+    needs: analyse_continue_54
+    name: Analyse Binary Continue 55
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_54
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_55
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_56:
+    needs: analyse_continue_55
+    name: Analyse Binary Continue 56
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_55
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_56
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_57:
+    needs: analyse_continue_56
+    name: Analyse Binary Continue 57
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_56
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_57
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_58:
+    needs: analyse_continue_57
+    name: Analyse Binary Continue 58
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_57
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_58
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_59:
+    needs: analyse_continue_58
+    name: Analyse Binary Continue 59
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_58
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_59
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_60:
+    needs: analyse_continue_59
+    name: Analyse Binary Continue 60
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_59
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_60
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_61:
+    needs: analyse_continue_60
+    name: Analyse Binary Continue 61
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_60
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_61
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_62:
+    needs: analyse_continue_61
+    name: Analyse Binary Continue 62
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_61
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_62
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_63:
+    needs: analyse_continue_62
+    name: Analyse Binary Continue 63
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_62
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_63
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_64:
+    needs: analyse_continue_63
+    name: Analyse Binary Continue 64
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_63
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_64
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_65:
+    needs: analyse_continue_64
+    name: Analyse Binary Continue 65
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_64
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_65
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_66:
+    needs: analyse_continue_65
+    name: Analyse Binary Continue 66
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_65
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_66
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_67:
+    needs: analyse_continue_66
+    name: Analyse Binary Continue 67
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_66
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_67
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_68:
+    needs: analyse_continue_67
+    name: Analyse Binary Continue 68
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_67
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_68
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_69:
+    needs: analyse_continue_68
+    name: Analyse Binary Continue 69
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_68
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_69
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_70:
+    needs: analyse_continue_69
+    name: Analyse Binary Continue 70
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_69
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_70
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_71:
+    needs: analyse_continue_70
+    name: Analyse Binary Continue 71
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_70
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_71
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_72:
+    needs: analyse_continue_71
+    name: Analyse Binary Continue 72
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_71
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_72
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_73:
+    needs: analyse_continue_72
+    name: Analyse Binary Continue 73
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_72
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_73
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_74:
+    needs: analyse_continue_73
+    name: Analyse Binary Continue 74
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_73
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_74
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_75:
+    needs: analyse_continue_74
+    name: Analyse Binary Continue 75
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_74
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_75
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_76:
+    needs: analyse_continue_75
+    name: Analyse Binary Continue 76
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_75
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_76
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_77:
+    needs: analyse_continue_76
+    name: Analyse Binary Continue 77
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_76
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_77
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_78:
+    needs: analyse_continue_77
+    name: Analyse Binary Continue 78
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_77
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_78
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_79:
+    needs: analyse_continue_78
+    name: Analyse Binary Continue 79
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_78
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_79
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_80:
+    needs: analyse_continue_79
+    name: Analyse Binary Continue 80
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_79
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_80
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_81:
+    needs: analyse_continue_80
+    name: Analyse Binary Continue 81
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_80
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_81
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_82:
+    needs: analyse_continue_81
+    name: Analyse Binary Continue 82
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_81
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_82
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_83:
+    needs: analyse_continue_82
+    name: Analyse Binary Continue 83
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_82
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_83
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_84:
+    needs: analyse_continue_83
+    name: Analyse Binary Continue 84
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_83
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_84
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_85:
+    needs: analyse_continue_84
+    name: Analyse Binary Continue 85
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_84
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_85
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_86:
+    needs: analyse_continue_85
+    name: Analyse Binary Continue 86
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_85
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_86
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_87:
+    needs: analyse_continue_86
+    name: Analyse Binary Continue 87
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_86
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_87
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_88:
+    needs: analyse_continue_87
+    name: Analyse Binary Continue 88
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_87
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_88
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_89:
+    needs: analyse_continue_88
+    name: Analyse Binary Continue 89
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_88
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_89
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_90:
+    needs: analyse_continue_89
+    name: Analyse Binary Continue 90
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_89
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_90
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_91:
+    needs: analyse_continue_90
+    name: Analyse Binary Continue 91
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_90
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_91
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_92:
+    needs: analyse_continue_91
+    name: Analyse Binary Continue 92
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_91
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_92
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_93:
+    needs: analyse_continue_92
+    name: Analyse Binary Continue 93
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_92
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_93
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_94:
+    needs: analyse_continue_93
+    name: Analyse Binary Continue 94
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_93
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_94
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_95:
+    needs: analyse_continue_94
+    name: Analyse Binary Continue 95
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_94
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_95
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_96:
+    needs: analyse_continue_95
+    name: Analyse Binary Continue 96
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_95
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_96
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_97:
+    needs: analyse_continue_96
+    name: Analyse Binary Continue 97
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_96
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_97
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_98:
+    needs: analyse_continue_97
+    name: Analyse Binary Continue 98
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_97
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_98
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_99:
+    needs: analyse_continue_98
+    name: Analyse Binary Continue 99
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_98
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_99
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_100:
+    needs: analyse_continue_99
+    name: Analyse Binary Continue 100
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_99
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_100
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_101:
+    needs: analyse_continue_100
+    name: Analyse Binary Continue 101
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_100
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_101
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_102:
+    needs: analyse_continue_101
+    name: Analyse Binary Continue 102
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_101
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_102
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_103:
+    needs: analyse_continue_102
+    name: Analyse Binary Continue 103
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_102
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_103
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_104:
+    needs: analyse_continue_103
+    name: Analyse Binary Continue 104
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_103
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_104
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_105:
+    needs: analyse_continue_104
+    name: Analyse Binary Continue 105
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_104
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_105
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_106:
+    needs: analyse_continue_105
+    name: Analyse Binary Continue 106
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_105
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_106
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_107:
+    needs: analyse_continue_106
+    name: Analyse Binary Continue 107
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_106
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_107
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_108:
+    needs: analyse_continue_107
+    name: Analyse Binary Continue 108
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_107
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_108
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_109:
+    needs: analyse_continue_108
+    name: Analyse Binary Continue 109
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_108
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_109
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_110:
+    needs: analyse_continue_109
+    name: Analyse Binary Continue 110
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_109
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_110
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_111:
+    needs: analyse_continue_110
+    name: Analyse Binary Continue 111
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_110
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_111
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_112:
+    needs: analyse_continue_111
+    name: Analyse Binary Continue 112
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_111
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_112
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_113:
+    needs: analyse_continue_112
+    name: Analyse Binary Continue 113
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_112
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_113
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_114:
+    needs: analyse_continue_113
+    name: Analyse Binary Continue 114
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_113
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_114
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_115:
+    needs: analyse_continue_114
+    name: Analyse Binary Continue 115
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_114
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_115
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_116:
+    needs: analyse_continue_115
+    name: Analyse Binary Continue 116
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_115
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_116
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_117:
+    needs: analyse_continue_116
+    name: Analyse Binary Continue 117
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_116
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_117
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_118:
+    needs: analyse_continue_117
+    name: Analyse Binary Continue 118
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_117
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_118
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_119:
+    needs: analyse_continue_118
+    name: Analyse Binary Continue 119
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_118
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_119
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_120:
+    needs: analyse_continue_119
+    name: Analyse Binary Continue 120
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_119
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_120
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_121:
+    needs: analyse_continue_120
+    name: Analyse Binary Continue 121
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_120
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_121
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_122:
+    needs: analyse_continue_121
+    name: Analyse Binary Continue 122
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_121
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_122
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_123:
+    needs: analyse_continue_122
+    name: Analyse Binary Continue 123
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_122
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_123
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_124:
+    needs: analyse_continue_123
+    name: Analyse Binary Continue 124
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_123
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_124
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_125:
+    needs: analyse_continue_124
+    name: Analyse Binary Continue 125
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_124
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_125
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_126:
+    needs: analyse_continue_125
+    name: Analyse Binary Continue 126
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_125
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_126
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_127:
+    needs: analyse_continue_126
+    name: Analyse Binary Continue 127
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_126
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_127
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_128:
+    needs: analyse_continue_127
+    name: Analyse Binary Continue 128
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_127
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_128
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_129:
+    needs: analyse_continue_128
+    name: Analyse Binary Continue 129
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_128
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_129
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_130:
+    needs: analyse_continue_129
+    name: Analyse Binary Continue 130
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_129
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_130
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_131:
+    needs: analyse_continue_130
+    name: Analyse Binary Continue 131
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_130
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_131
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_132:
+    needs: analyse_continue_131
+    name: Analyse Binary Continue 132
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_131
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_132
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_133:
+    needs: analyse_continue_132
+    name: Analyse Binary Continue 133
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_132
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_133
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_134:
+    needs: analyse_continue_133
+    name: Analyse Binary Continue 134
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_133
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_134
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_135:
+    needs: analyse_continue_134
+    name: Analyse Binary Continue 135
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_134
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_135
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_136:
+    needs: analyse_continue_135
+    name: Analyse Binary Continue 136
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_135
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_136
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_137:
+    needs: analyse_continue_136
+    name: Analyse Binary Continue 137
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_136
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_137
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_138:
+    needs: analyse_continue_137
+    name: Analyse Binary Continue 138
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_137
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_138
+          path: ${{ env.binary }}.tar.zst
+        
+    
+  analyse_continue_139:
+    needs: analyse_continue_138
+    name: Analyse Binary Continue 139
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Update and Upgrade
+        run: |
+          sudo apt update
+          sudo apt upgrade -y
+          sudo apt install -y zstd
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: ${{ env.binary }}_138
+
+      - name: Prepare_download Artifact
+        run: |
+          zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
+
+      - name: start docker and analyse
+        run: |
+          chmod +x analysis.sh
+          ls -alh
+          docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ls -la
+
+      - name: Prepare Artifact
+        run: |
+          rm -rf ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
+
+      - name: Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ env.binary }}_139
+          path: ${{ env.binary }}.tar.zst
+        
     
