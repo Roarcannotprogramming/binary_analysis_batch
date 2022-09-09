@@ -1,7 +1,7 @@
 name: Analyse Binary
 on:
   workflow_dispatch:
-  # push:
+  push:
 
 env:
   binary: MonsterHunterRise.exe
