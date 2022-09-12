@@ -4,8 +4,8 @@ on:
   push:
 
 env:
-  binary: test.ko
-  url: http://storage.live.com/items/207D308974C1AE6B!220011:/test.ko?authkey=AJkvzg0zYsQ5QxA
+  binary: WayOfTheHunter-Win64-Shipping.exe
+  url: http://storage.live.com/items/207D308974C1AE6B!220010:/WayOfTheHunter-Win64-Shipping.exe?authkey=AJkvzg0zYsQ5QxA
 
 jobs:
   analyse:
@@ -32,11 +32,15 @@ jobs:
           chmod +x analysis.sh
           ls -alh
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
-          tar -cvf - ${{ env.binary }}* | zstd - -o ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
 
       - name: Artifact
         uses: actions/upload-artifact@v3
@@ -77,20 +81,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -137,20 +134,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -197,20 +187,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -257,20 +240,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -308,7 +284,7 @@ jobs:
 
       - name: Check if already completed
         run: |
-          if [ "$(cat ida_log | grep "The initial autoanalysis has been finished.")" ]; then
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
             echo "[+] Already completed! Exit"
             exit 0
           fi
@@ -317,20 +293,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -377,20 +346,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -437,20 +399,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -497,20 +452,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -557,20 +505,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -617,20 +558,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -677,20 +611,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -737,20 +664,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -797,20 +717,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -857,20 +770,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -917,20 +823,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -977,20 +876,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -1037,20 +929,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -1097,20 +982,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -1157,20 +1035,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -1217,20 +1088,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -1277,20 +1141,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -1337,20 +1194,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -1397,20 +1247,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -1457,20 +1300,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -1517,20 +1353,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -1577,20 +1406,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -1637,20 +1459,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -1697,20 +1512,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -1757,20 +1565,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -1817,20 +1618,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -1877,20 +1671,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -1937,20 +1724,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -1997,20 +1777,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -2057,20 +1830,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -2117,20 +1883,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -2177,20 +1936,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -2237,20 +1989,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -2297,20 +2042,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -2357,20 +2095,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -2417,20 +2148,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -2477,20 +2201,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -2537,20 +2254,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -2597,20 +2307,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -2657,20 +2360,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -2717,20 +2413,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -2777,20 +2466,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -2837,20 +2519,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -2897,20 +2572,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -2957,20 +2625,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -3017,20 +2678,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -3077,20 +2731,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -3137,20 +2784,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -3197,20 +2837,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -3257,20 +2890,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -3317,20 +2943,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -3377,20 +2996,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -3437,20 +3049,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -3497,20 +3102,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -3557,20 +3155,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -3617,20 +3208,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -3677,20 +3261,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -3737,20 +3314,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -3797,20 +3367,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -3857,20 +3420,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -3917,20 +3473,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -3977,20 +3526,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -4037,20 +3579,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -4097,20 +3632,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -4157,20 +3685,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -4217,20 +3738,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -4277,20 +3791,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -4337,20 +3844,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -4397,20 +3897,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -4457,20 +3950,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -4517,20 +4003,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -4577,20 +4056,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -4637,20 +4109,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -4697,20 +4162,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -4757,20 +4215,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -4817,20 +4268,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -4877,20 +4321,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -4937,20 +4374,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -4997,20 +4427,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -5057,20 +4480,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -5117,20 +4533,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -5177,20 +4586,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -5237,20 +4639,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -5297,20 +4692,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -5357,20 +4745,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -5417,20 +4798,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -5477,20 +4851,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -5537,20 +4904,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -5597,20 +4957,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -5657,20 +5010,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -5717,20 +5063,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -5777,20 +5116,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -5837,20 +5169,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -5897,20 +5222,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -5957,20 +5275,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -6017,20 +5328,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -6077,20 +5381,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -6137,20 +5434,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -6197,20 +5487,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -6257,20 +5540,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -6317,20 +5593,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -6377,20 +5646,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -6437,20 +5699,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -6497,20 +5752,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -6557,20 +5805,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -6617,20 +5858,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -6677,20 +5911,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -6737,20 +5964,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -6797,20 +6017,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -6857,20 +6070,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -6917,20 +6123,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -6977,20 +6176,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -7037,20 +6229,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -7097,20 +6282,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -7157,20 +6335,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -7217,20 +6388,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -7277,20 +6441,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -7337,20 +6494,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -7397,20 +6547,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -7457,20 +6600,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -7517,20 +6653,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -7577,20 +6706,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -7637,20 +6759,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -7697,20 +6812,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -7757,20 +6865,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -7817,20 +6918,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -7877,20 +6971,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -7937,20 +7024,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -7997,20 +7077,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -8057,20 +7130,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -8117,20 +7183,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -8177,20 +7236,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -8237,20 +7289,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -8297,20 +7342,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
@@ -8357,20 +7395,13 @@ jobs:
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
 
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
 
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
-
+      - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |

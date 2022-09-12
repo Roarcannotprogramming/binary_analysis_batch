@@ -29,7 +29,6 @@ job_base = """  analyse:
           chmod +x analysis.sh
           ls -alh
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ls -la
 
       - name: Print Log
         run: |
@@ -84,21 +83,10 @@ for i in range(35*24//6 - 1):
         run: |
           chmod +x analysis.sh
           ls -alh
-
-          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{{{ env.binary }}}} --name ida-docker -p 8080:8080 -v ${{{{ github.workspace }}}}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
-          ENDTIME=$(date +%s%N)
-
-          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
-          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
-
-          if [ $TIMEPASSED -lt 18000 ]; then
-            echo "Analysis time is less than 5 hours, It should be all done!"
-            exit 1
-          fi
 
 
-        - name: Print Log
+      - name: Print Log
         run: |
           ls -la
           cat ida_log
