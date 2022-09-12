@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-from re import T
 import threading
 import ida_kernwin
 import ida_auto
