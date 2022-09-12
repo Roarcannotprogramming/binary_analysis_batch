@@ -76,7 +76,7 @@ for i in range(35*24//6 - 1):
         run: |
           if [ "$(cat ida_log | grep "The initial autoanalysis has been finished.")" ]; then
             echo "[+] Already completed! Exit"
-            exit 0
+            exit 1
           fi
 
       - name: start docker and analyse
