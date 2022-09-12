@@ -66,11 +66,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -107,11 +126,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -148,11 +186,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -189,11 +246,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -230,11 +306,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -271,11 +366,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -312,11 +426,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -353,11 +486,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -394,11 +546,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -435,11 +606,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -476,11 +666,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -517,11 +726,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -558,11 +786,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -599,11 +846,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -640,11 +906,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -681,11 +966,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -722,11 +1026,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -763,11 +1086,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -804,11 +1146,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -845,11 +1206,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -886,11 +1266,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -927,11 +1326,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -968,11 +1386,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -1009,11 +1446,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -1050,11 +1506,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -1091,11 +1566,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -1132,11 +1626,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -1173,11 +1686,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -1214,11 +1746,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -1255,11 +1806,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -1296,11 +1866,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -1337,11 +1926,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -1378,11 +1986,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -1419,11 +2046,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -1460,11 +2106,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -1501,11 +2166,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -1542,11 +2226,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -1583,11 +2286,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -1624,11 +2346,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -1665,11 +2406,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -1706,11 +2466,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -1747,11 +2526,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -1788,11 +2586,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -1829,11 +2646,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -1870,11 +2706,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -1911,11 +2766,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -1952,11 +2826,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -1993,11 +2886,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -2034,11 +2946,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -2075,11 +3006,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -2116,11 +3066,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -2157,11 +3126,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -2198,11 +3186,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -2239,11 +3246,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -2280,11 +3306,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -2321,11 +3366,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -2362,11 +3426,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -2403,11 +3486,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -2444,11 +3546,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -2485,11 +3606,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -2526,11 +3666,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -2567,11 +3726,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -2608,11 +3786,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -2649,11 +3846,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -2690,11 +3906,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -2731,11 +3966,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -2772,11 +4026,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -2813,11 +4086,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -2854,11 +4146,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -2895,11 +4206,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -2936,11 +4266,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -2977,11 +4326,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -3018,11 +4386,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -3059,11 +4446,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -3100,11 +4506,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -3141,11 +4566,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -3182,11 +4626,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -3223,11 +4686,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -3264,11 +4746,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -3305,11 +4806,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -3346,11 +4866,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -3387,11 +4926,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -3428,11 +4986,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -3469,11 +5046,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -3510,11 +5106,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -3551,11 +5166,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -3592,11 +5226,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -3633,11 +5286,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -3674,11 +5346,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -3715,11 +5406,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -3756,11 +5466,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -3797,11 +5526,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -3838,11 +5586,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -3879,11 +5646,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -3920,11 +5706,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -3961,11 +5766,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -4002,11 +5826,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -4043,11 +5886,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -4084,11 +5946,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -4125,11 +6006,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -4166,11 +6066,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -4207,11 +6126,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -4248,11 +6186,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -4289,11 +6246,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -4330,11 +6306,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -4371,11 +6366,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -4412,11 +6426,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -4453,11 +6486,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -4494,11 +6546,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -4535,11 +6606,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -4576,11 +6666,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -4617,11 +6726,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -4658,11 +6786,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -4699,11 +6846,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -4740,11 +6906,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -4781,11 +6966,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -4822,11 +7026,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -4863,11 +7086,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -4904,11 +7146,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -4945,11 +7206,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -4986,11 +7266,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -5027,11 +7326,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -5068,11 +7386,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -5109,11 +7446,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -5150,11 +7506,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -5191,11 +7566,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -5232,11 +7626,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -5273,11 +7686,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -5314,11 +7746,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -5355,11 +7806,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -5396,11 +7866,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -5437,11 +7926,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -5478,11 +7986,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -5519,11 +8046,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -5560,11 +8106,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -5601,11 +8166,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -5642,11 +8226,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -5683,11 +8286,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
@@ -5724,11 +8346,30 @@ jobs:
         run: |
           zstd -d ${{ env.binary }}.tar.zst -c | tar xf -
 
+      - name: Check if already completed
+        run: |
+          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+            echo "[+] Already completed! Exit"
+            exit 0
+          fi
+
       - name: start docker and analyse
         run: |
           chmod +x analysis.sh
           ls -alh
+
+          STARTTIME=$(date +%s%N)
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
+          ENDTIME=$(date +%s%N)
+
+          TIMEPASSED=$(expr $ENDTIME - $STARTTIME)
+          TIMEPASSED=$(expr $TIMEPASSED / 1000000000)
+
+          if [ $TIMEPASSED -lt 18000 ]; then
+            echo "Analysis time is less than 5 hours, It should be all done!"
+            exit 1
+          fi
+
           ls -la
 
       - name: Prepare Artifact
