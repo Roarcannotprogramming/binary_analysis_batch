@@ -9,10 +9,10 @@ import time
 
 def timout_thread_func():
     print("[*] Timeout thread started")
-    # time.sleep(int(5.5*60*60))
-    for i in range(0, 5*60):
-        print("[*] Passed {} seconds".format(i))
-        time.sleep(1)
+    time.sleep(int(5*60*60))
+    # for i in range(0, 5*60):
+    #     print("[*] Passed {} seconds".format(i))
+    #     time.sleep(1)
     print("[+] Now! Analysis Timeout!")
     c = compile('ida_pro.qexit(0)', '', 'exec')
     ida_kernwin.execute_sync(lambda: exec(c), ida_kernwin.MFF_WRITE)
@@ -23,7 +23,7 @@ def auto_ok_thread_func():
         if ida_kernwin.execute_sync(lambda: ida_auto.auto_is_ok(), ida_kernwin.MFF_WRITE):
             print("[+] Auto analysis OK! Exit")
             break
-        time.sleep(5)
+        time.sleep(30)
     c = compile('ida_pro.qexit(0)', '', 'exec')
     ida_kernwin.execute_sync(lambda: exec(c), ida_kernwin.MFF_WRITE)
 
