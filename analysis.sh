@@ -13,6 +13,8 @@
 # }
 
 do_save() {
+    echo "[+] Print Ida Log"
+    cat /root/.wine/drive_c/ida_log
     echo "[*] Save"
     mv /root/.wine/drive_c/${BINARY}* /root/host
     mv /root/.wine/drive_c/ida_log /root/host

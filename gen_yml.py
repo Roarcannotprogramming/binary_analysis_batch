@@ -31,9 +31,14 @@ job_base = """  analyse:
           docker run --rm --env BINARY=${{ env.binary }} --name ida-docker -p 8080:8080 -v ${{ github.workspace }}:/root/host nyamisty/docker-wine-ida:7.5sp3 /root/host/analysis.sh
           ls -la
 
+      - name: Print Log
+        run: |
+          ls -la
+          cat ida_log
+
       - name: Prepare Artifact
         run: |
-          tar -cvf - ${{ env.binary }}* | zstd - -o ${{ env.binary }}.tar.zst
+          tar -cvf - ${{ env.binary }}* ida_log | zstd - -o ${{ env.binary }}.tar.zst
 
       - name: Artifact
         uses: actions/upload-artifact@v3
@@ -92,7 +97,11 @@ for i in range(35*24//6 - 1):
             exit 1
           fi
 
+
+        - name: Print Log
+        run: |
           ls -la
+          cat ida_log
 
       - name: Prepare Artifact
         run: |
