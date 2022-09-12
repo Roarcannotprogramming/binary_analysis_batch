@@ -74,7 +74,7 @@ for i in range(35*24//6 - 1):
 
       - name: Check if already completed
         run: |
-          if [ $(cat ida_log | grep "The initial autoanalysis has been finished.") ]; then
+          if [ "$(cat ida_log | grep "The initial autoanalysis has been finished.")" ]; then
             echo "[+] Already completed! Exit"
             exit 0
           fi
