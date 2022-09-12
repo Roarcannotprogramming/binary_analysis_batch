@@ -23,7 +23,10 @@ trap "do_save; exit 0" SIGINT SIGTERM
 
 echo "Starting IDA..."
 # cp /root/host/* /root/.wine/drive_c/
-find /root/host -type f | xargs cp - /root/.wine/drive_c/
+# find /root/host -type f | xargs cp /root/.wine/drive_c/
+for f in $(find /root/host -type f); do
+    cp $f /root/.wine/drive_c/
+done
 ls -alh /root/.wine/drive_c
 watch_file &
 rm /root/.wine/drive_c/IDA/plugins/ipyida_plugin_stub.py
