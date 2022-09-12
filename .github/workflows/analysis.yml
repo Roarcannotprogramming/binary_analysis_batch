@@ -4,8 +4,8 @@ on:
   push:
 
 env:
-  binary: test.ko
-  url: http://storage.live.com/items/207D308974C1AE6B!220011:/test.ko?authkey=AJkvzg0zYsQ5QxA
+  binary: WayOfTheHunter-Win64-Shipping.exe
+  url: http://storage.live.com/items/207D308974C1AE6B!220010:/WayOfTheHunter-Win64-Shipping.exe?authkey=AJkvzg0zYsQ5QxA
 
 jobs:
   analyse:
