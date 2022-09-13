@@ -1,5 +1,5 @@
-binary = 'WayOfTheHunter-Win64-Shipping.exe'
-url = 'http://storage.live.com/items/207D308974C1AE6B!220010:/WayOfTheHunter-Win64-Shipping.exe?authkey=AJkvzg0zYsQ5QxA'
+binary = 'MonsterHunterRise.exe'
+url = 'http://storage.live.com/items/207D308974C1AE6B!219969:/MonsterHunterRise.exe?authkey=AJkvzg0zYsQ5QxA'
 
 header = "name: Analyse Binary\non:\n  workflow_dispatch:\n  push:\n\n"
 env = "env:\n  binary: {}\n  url: {}\n\n".format(binary, url)
